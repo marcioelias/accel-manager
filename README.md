@@ -1,7 +1,7 @@
 # Accel-Manager v-0.1
 
-- [Sobre](#about)
-- [Instalação](#install)
+- [Sobre](#sobre)
+- [Instalação](#instalacao)
 
 ## Sobre
 Do you want your clients to be able to install a Laravel project just like they do with WordPress or any other CMS?
