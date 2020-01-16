@@ -28,20 +28,20 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
                         <label class="custom-control-label" for="remember">Manter conectado</label>
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <button class="btn btn-info btn-lg btn-block">Entrar</button>
                 </div>
-                <div class="row">
+                {{-- <div class="row">
                     <a class="btn btn-link text-light" href="{{ route('password.request') }}">
                         Esqueceu sua senha?
                     </a>
-                </div>
+                </div> --}}
             </form>  
         </div>
     </div>
