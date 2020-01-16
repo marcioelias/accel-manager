@@ -1,11 +1,12 @@
 <template>
     <div class="card border-0">
         <div class="card-header m-0 p-0 border-0">
-            <form>
+            <form v-on:submit.prevent>
                 <div class="row m-0 p-0">
                     <div class="col-3 m-0 p-0">
                         <div class="input-group">
                             <div class="input-group-prepend">
+                                <button class="btn btn-info" @click="doOnSync()"><i class="fas fa-sync-alt"></i></button>
                                 <span class="input-group-text">Registros por página</span>
                             </div>
                             <select name="tests1" class="form-control" v-model="itemsPerPage">
@@ -128,6 +129,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal" @click="doOnChangeQueue()">Aplicar</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" @click="doOnResetQueue()">Restaurar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
@@ -152,7 +154,8 @@ export default {
                 ifname: '',
                 rx: '',
                 tx: ''
-            }
+            },
+            timer: ''
         }
     },
     components: {
@@ -206,7 +209,31 @@ export default {
     mounted() {
         $(this.$refs.modalChangeQueue).on("hidden.bs.modal", this.doOnCloseModalChangeQueue);
     },
+    created() {
+        this.timer = setInterval(this.getSessions, 10000);
+    },
+    getters: {
+        queue: {
+            get() {
+                return this.queue;
+            },
+            set(value) {
+                value.tx = (value.tx == '') ? '' : value.tx+'M';
+                value.rx = (value.rx == '') ? '' : value.rx+'M';
+                this.queue = value;
+            }
+        }
+    },
+    beforeDestroy() {
+        this.cancelAutoUpdate();
+    },
     methods: {
+        getSessions() {
+            this.$store.dispatch('apiGetSessions');
+        },
+        cancelAutoUpdate() {
+            clearInterval(this.timer);
+        },
         doOnSortClick(column) {
             if (this.sortBy == column.column) {
                 this.sortAsc = !this.sortAsc;
@@ -251,6 +278,12 @@ export default {
         },
         doOnCloseModalChangeQueue: function() {
             this.queue = { ifname: '', rx: '', tx: '' };
+        },
+        doOnResetQueue: function() {
+            this.$store.dispatch('apiResetQueue', this.queue);
+        },
+        doOnSync: function() {
+            this.$store.dispatch('apiGetSessions');
         }
     },
 }

@@ -21,6 +21,7 @@ class AccelController extends Controller
     const ACCEL_TERMINATE_HARD = ' hard';
     const ACCEL_CHANGE_QUEUE = 'shaper change ';
     const ACCEL_CHANGE_QUEUE_TEMP = ' temp';
+    const ACCEL_RESTORE_QUEUE = 'shaper restore ';
 
     public function sysExec(String $cmd) {       
         $res = self::EMPTY;
@@ -70,8 +71,11 @@ class AccelController extends Controller
 
     public function getSessions() {
         $cmd = self::ACCEL_CMD.self::ACCEL_CMD_SHOW_SESSIONS.self::ACCEL_SESSIONS_COLUMNS;
-        return $this->sysExec($cmd);
-        //return $this->sysExecDbg($cmd);
+        if (env('APP_DEBUG') == false) {
+            return $this->sysExec($cmd);
+        } else {
+            return $this->sysExecDbg($cmd);
+        }
     }
 
     public function getSessionsJson() {
@@ -118,9 +122,18 @@ class AccelController extends Controller
     }
 
     public function changeQueue(Request $request) {
-        Log::info($request->all());
         $queue = $request->rx.'/'.$request->tx;
         $cmd = self::ACCEL_CMD.self::ACCEL_CHANGE_QUEUE.$request->ifname.' '.$queue.self::ACCEL_CHANGE_QUEUE_TEMP;
+        try {
+            $this->sysExec($cmd);
+            return response()->json(true);
+        } catch (\Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+    public function resetQueue(Request $request) {
+        $cmd = self::ACCEL_CMD.self::ACCEL_RESTORE_QUEUE.$request->ifname;
         try {
             $this->sysExec($cmd);
             return response()->json(true);

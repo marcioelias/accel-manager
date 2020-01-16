@@ -120,7 +120,18 @@ export default new Vuex.Store({
             Axios.post('/session/queue', queue)
                 .then(r => {
                     if (r.data) {
-                        console.log(r.data);
+                        return r.data;
+                    }
+                })
+                .catch(r => {
+                    console.log(r);
+                })
+        },
+        apiResetQueue({}, queue) {
+            Axios.post('/session/queue/reset', queue)
+                .then(r => {
+                    if (r.data) {
+                        return r.data;
                     }
                 })
                 .catch(r => {
