@@ -14,7 +14,8 @@ export default new Vuex.Store({
         sortAsc: true,
         filterBy: 'username',
         filterValue: '',
-        graph: false
+        graph: false,
+        loading: false
     },
     getters: {
         getSessionByUsername: state => username =>  {
@@ -79,11 +80,14 @@ export default new Vuex.Store({
     },
     actions: {
         apiGetSessions({commit}) {
+            commit(VALID_MUTATIONS.LOADING, true);
             Axios.get('/sessions/json')
                 .then(async r => {
                     commit(VALID_MUTATIONS.SET_SESSIONS, r.data);
+                    commit(VALID_MUTATIONS.LOADING, false);
                 })
                 .catch(r => {
+                    commit(VALID_MUTATIONS.LOADING, false);
                     console.log(r);
                 });
         },
@@ -172,6 +176,9 @@ export default new Vuex.Store({
         [VALID_MUTATIONS.DELETE_SESSION](state, session) {
             let idx = state.sessions.findIndex(s => s.ifname == session.ifname);
             state.sessions.splice(idx, 1);
+        },
+        [VALID_MUTATIONS.LOADING](state, loading) {
+            state.loading = loading;
         }
     }
 });

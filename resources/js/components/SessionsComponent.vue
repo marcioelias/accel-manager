@@ -6,7 +6,9 @@
                     <div class="col-3 m-0 p-0">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <button class="btn btn-info" @click="doOnSync()"><i class="fas fa-sync-alt"></i></button>
+                                <button class="btn btn-info" @click="doOnSync()" data-toggle="tooltip" data-placement="top" title="Atualizar dados">
+                                    <i class="fas fa-sync-alt" :class="isLoading"></i>
+                                </button>
                                 <span class="input-group-text">Registros por página</span>
                             </div>
                             <select name="tests1" class="form-control" v-model="itemsPerPage">
@@ -63,9 +65,9 @@
                     <tr  v-for="item in paginated('items')" :key="item.id">
                         <td v-for="column in visibleColumns" :key="column.id">{{ item[column.column] }}</td>
                         <td>
-                            <button class="btn btn-sm btn-info" @click="doOnGraphClick(item)"><i class="fas fa-chart-area"></i></button>
-                            <button class="btn btn-sm btn-secondary" @click="doOnQueueClick(item)"><i class="fas fa-tachometer-alt"></i></button>
-                            <button class="btn btn-sm btn-danger" @click="doOnDropClick(item)"><i class="fas fa-power-off"></i></button>
+                            <button class="btn btn-sm btn-info" @click="doOnGraphClick(item)" data-toggle="tooltip" data-placement="top" title="Gráfico de consumo de banda"><i class="fas fa-chart-area"></i></button>
+                            <button class="btn btn-sm btn-secondary" @click="doOnQueueClick(item)" data-toggle="tooltip" data-placement="top" title="Alteração de Queue"><i class="fas fa-tachometer-alt"></i></button>
+                            <button class="btn btn-sm btn-danger" @click="doOnDropClick(item)" data-toggle="tooltip" data-placement="top" title="Derrubar conexão"><i class="fas fa-power-off"></i></button>
                         </td>
                     </tr>
                 </paginate>
@@ -202,6 +204,11 @@ export default {
                 }
             }
         },
+        isLoading() {
+            return {
+                'fa-spin': this.$store.state.loading
+            }
+        }
     },
     mounted() {
         $(this.$refs.modalChangeQueue).on("hidden.bs.modal", this.doOnCloseModalChangeQueue);
