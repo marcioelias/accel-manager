@@ -96,7 +96,7 @@ export default {
             this.chartOptions.series[1].data = [];
         },
         getInterfaceStats: function() {
-            Axios.get('/interface/'+'enxc025e91b5e52'+'/json')
+            Axios.get('/interface/'+this.graph.ifname+'/json')
                 .then(async r => {
                     if (!this.lastData) {
                         this.lastData = r.data;
