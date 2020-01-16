@@ -200,9 +200,6 @@ export default {
                 if (value != this.$store.state.filterValue) {
                     this.$store.commit(VALID_MUTATIONS.SET_SESSIONS_FILTER_VALUE, value);
                 }
-                if (value == '') {
-                    console.log(this);
-                }
             }
         },
     },
@@ -211,18 +208,6 @@ export default {
     },
     created() {
         this.timer = setInterval(this.getSessions, 10000);
-    },
-    getters: {
-        queue: {
-            get() {
-                return this.queue;
-            },
-            set(value) {
-                value.tx = (value.tx == '') ? '' : value.tx+'M';
-                value.rx = (value.rx == '') ? '' : value.rx+'M';
-                this.queue = value;
-            }
-        }
     },
     beforeDestroy() {
         this.cancelAutoUpdate();

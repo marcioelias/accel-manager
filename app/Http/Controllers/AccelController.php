@@ -121,8 +121,8 @@ class AccelController extends Controller
         }
     }
 
-    public function changeQueue(Request $request) {
-        $queue = $request->rx.'/'.$request->tx;
+    public function changeQueue(Request $request) {        
+        $queue = $request->rx.'M/'.$request->tx.'M';
         $cmd = self::ACCEL_CMD.self::ACCEL_CHANGE_QUEUE.$request->ifname.' '.$queue.self::ACCEL_CHANGE_QUEUE_TEMP;
         try {
             $this->sysExec($cmd);
