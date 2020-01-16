@@ -121,13 +121,13 @@ class ColumnsTableSeeder extends Seeder
             [
                 'column' => 'rx-bytes-raw',
                 'label' => 'RX Bytes Raw',
-                'visible' => true,
+                'visible' => false,
                 'type' => 'number'
             ],
             [
                 'column' => 'tx-bytes-raw',
                 'label' => 'TX Bytes Raw',
-                'visible' => true,
+                'visible' => false,
                 'type' => 'number'
             ],
             [
