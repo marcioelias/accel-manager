@@ -51,10 +51,10 @@ export default {
                     text: 'Tráfego na Interface',
                 },
                 series: [{
-                    name: 'RX',
-                    data: []
-                }, {
                     name: 'TX',
+                    data: []
+                },{
+                    name: 'RX',
                     data: []
                 }]
             }
@@ -106,11 +106,11 @@ export default {
                         let rxSpeed = (r.data.rxbytes - this.lastData.rxbytes) * 1000 * 8 / timeDiff;
                         let txSpeed = (r.data.txbytes - this.lastData.txbytes) * 1000 * 8 / timeDiff;
                         if (shift) {
-                            this.chartOptions.series[0].data = this.chartOptions.series[0].data.slice(1).slice(-60);
-                            this.chartOptions.series[1].data = this.chartOptions.series[1].data.slice(1).slice(-60);
+                            this.chartOptions.series[0].data = this.chartOptions.series[1].data.slice(1).slice(-60);
+                            this.chartOptions.series[1].data = this.chartOptions.series[0].data.slice(1).slice(-60);
                         }
-                        this.chartOptions.series[0].data.push([r.data.stamp, rxSpeed]);
-                        this.chartOptions.series[1].data.push([r.data.stamp, txSpeed]);
+                        this.chartOptions.series[0].data.push([r.data.stamp, txSpeed]);
+                        this.chartOptions.series[1].data.push([r.data.stamp, rxSpeed]);
                         
                         this.lastData = r.data;
                     }
