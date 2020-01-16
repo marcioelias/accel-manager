@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+    RewriteRule ^assets/.* - [L]
+	
+	#https
+	RewriteCond %{HTTPS} off
+	RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+	#laravel public folder
+	RewriteCond %{REQUEST_URI} !^/public/
+	RewriteRule ^(.*)$ /public/$1 [L,QSA]
+</IfModule>

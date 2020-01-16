@@ -1,0 +1,1 @@
+<input type="hidden" name="{{$field}}" id="{{$field}}" value="{{ isset($inputValue) ? $inputValue : old($field) }}">

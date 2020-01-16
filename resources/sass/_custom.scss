@@ -1,0 +1,117 @@
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(64, 64, 64);
+}
+.btco-menu li > a {
+    padding: 10px 15px;
+    color: #000;
+
+}
+
+.btco-menu .active a:focus,
+.btco-menu li a:focus ,
+.navbar > .show > a:focus{
+    background: transparent;
+    outline: 0;
+}
+
+
+.dropdown-menu .show > .dropdown-toggle::after{
+    transform: rotate(-90deg);
+}
+
+/* .dropdown:hover .dropdown-menu {
+    display: block;
+} */
+
+.pagination{
+    margin-bottom: 0px !important;
+}
+
+/* Bootstrap Toggle v2.2.2 corrections for Bootsrtap 4*/
+.toggle-off {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.toggle.off {
+    border-color: rgba(0, 0, 0, .25);
+}
+
+.toggle-handle {
+    background-color: white;
+    border: thin rgba(0, 0, 0, .25) solid;
+}
+
+.content-wrapper {
+    margin-left: 0 !important;
+}
+
+.btn-group-xs > .btn, .btn-xs {
+    padding  : .4rem;
+    font-size  : .875rem;
+    line-height  : .5;
+    border-radius : .2rem;
+}
+
+.chart-container {
+    width: 400px;
+    height: 800px;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+$v_sizes: 10, 20, 30, 40, 50, 60, 70, 80, 90;
+
+@each $v_size in $v_sizes {
+    .h-#{$v_size} {
+        height: $v_size+vh !important;
+    }
+} 
+
+input {
+    border-radius: 0 !important;
+}
+
+button {
+    border-radius: 0 !important;
+}
+
+.card-header:first-child {
+    border-radius: 0 !important;
+}
+
+ul.paginate-links {
+    cursor: pointer !important;
+}
+
+.page-link:hover, .page-link:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+ul.li.page-link:focus {
+    z-index: 2;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25) !important;
+}
+
+.scrollme {
+    overflow: auto;
+}
+
+.scrollme-x {
+    overflow-x: auto;
+}
+
+.scrollme-y {
+    overflow-y: auto;
+}
+
+.modal-header {
+    border-top-left-radius: 0rem !important;
+    border-top-right-radius: 0rem !important;
+}
+
+.modal-body {
+    border-radius: 0rem !important;
+}
