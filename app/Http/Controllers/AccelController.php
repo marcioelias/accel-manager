@@ -17,6 +17,10 @@ class AccelController extends Controller
     const ACCEL_CMD = 'accel-cmd ';
     const ACCEL_CMD_SHOW_SESSIONS = 'show sessions ';
     const ACCEL_CMD_TERMINATE_IF = 'terminate if ';
+    const ACCEL_TERMINATE_SOFT = ' soft';
+    const ACCEL_TERMINATE_HARD = ' hard';
+    const ACCEL_CHANGE_QUEUE = 'shaper change ';
+    const ACCEL_CHANGE_QUEUE_TEMP = ' temp';
 
     public function sysExec(String $cmd) {       
         $res = self::EMPTY;
@@ -104,7 +108,7 @@ class AccelController extends Controller
     }
 
     public function dropSession(Request $request) {
-        $cmd = 'terminate if '.$request->ifname.' hard';
+        $cmd = self::ACCEL_CMD.self::ACCEL_CMD_TERMINATE_IF.$request->ifname.' hard';
         try {
             $this->sysExec($cmd);
             return response()->json(true);
@@ -116,7 +120,7 @@ class AccelController extends Controller
     public function changeQueue(Request $request) {
         Log::info($request->all());
         $queue = $request->rx.'/'.$request->tx;
-        $cmd = 'shaper change '.$request->ifname.' '.$queue.' temp';
+        $cmd = self::ACCEL_CMD.self::ACCEL_CHANGE_QUEUE.$request->ifname.' '.$queue.self::ACCEL_CHANGE_QUEUE_TEMP;
         try {
             $this->sysExec($cmd);
             return response()->json(true);
