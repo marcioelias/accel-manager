@@ -39,4 +39,5 @@ Route::middleware(['auth:web'])->group(function() {
 
     Route::post('/session/drop', 'AccelController@dropSession');
     Route::post('/session/queue', 'AccelController@changeQueue');
+    Route::post('/session/queue/reset', 'AccelController@resetQueue');
 });
