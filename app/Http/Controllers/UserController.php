@@ -35,9 +35,8 @@ class UserController extends Controller
         if (Auth::user()->canListarUser()) {
             if (isset($request->searchField)) {
                 $whereRaw = $this->getWhereField($request, $this->fields);
-                $users = DB::table('users')
-                    ->whereRaw($whereRaw)
-                    ->paginate();
+                $users = User::whereRaw($whereRaw)
+                            ->paginate();
             } else {
                 $users = User::paginate();
             }
