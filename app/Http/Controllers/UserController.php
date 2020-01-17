@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public $fields = array(
         'id' => ['label' => 'ID', 'type' => 'int', 'searchParam' => true],
-        'name' => ['label' => 'Nome', 'type' => 'string', 'searchParame' => true],
+        'name' => ['label' => 'Nome', 'type' => 'string', 'searchParam' => true],
         'username' => ['label' => 'Usuário', 'type' => 'string', 'searchParam' => true],
         'email' => ['label' => 'E-mail', 'type' => 'string', 'searchParam' => true],
         'active' => ['label' => 'Ativo', 'type' => 'bool']
