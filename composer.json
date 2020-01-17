@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
+        "pragmarx/version": "^1.0",
         "santigarcor/laratrust": "5.2.*"
     },
     "require-dev": {

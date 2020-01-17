@@ -6,5 +6,6 @@
 </head>
 <body class="bg-white">
     @yield('body')
+    @include('layouts.version')
 </body>
 </html>
