@@ -6,6 +6,7 @@ use App\Role;
 use App\Permission;
 use App\PermissionRole;
 use App\RolePermission;
+use App\Traits\SearchTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -14,10 +15,12 @@ use Illuminate\Support\Facades\Session;
 
 class RolesController extends Controller
 {
+    use SearchTrait;
+
     public $fields = [
-        'id' => 'ID',
-        'name' => 'Identificação',
-        'display_name' => 'Perfil',
+        'id' => ['label' => 'ID', 'type' => 'int', 'searchParam' => true],
+        'name' => ['Identificação', 'type' => 'string',  'searchParam' => true],
+        'display_name' => ['label' => 'Perfil', 'type' => 'string', 'searchParam' => true],
         'description' => 'Descrição'
     ];
 
@@ -30,10 +33,8 @@ class RolesController extends Controller
     {
         if (Auth::user()->canListarRole()) {
             if ($request->SearchField) {
-                $roles = DB::table('roles')
-                            ->where('name', 'like', '%'.$request->searchField.'%')
-                            ->orWhere('display_name', 'like', '%'.$request->searchField.'%')
-                            ->orWhere('description', 'like', '%'.$request->searchField.'%')
+                $whereRaw = $this->getWhereField($request, $this->fields);
+                $roles = Role::whereRaw($whereRaw)
                             ->paginate();
             } else {
                 $roles = Role::paginate();
