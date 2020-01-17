@@ -11,7 +11,7 @@
                                 </button>
                                 <span class="input-group-text">Registros por página</span>
                             </div>
-                            <select name="tests1" class="form-control" v-model="itemsPerPage">
+                            <select name="items-per-page" class="form-control" v-model="itemsPerPage">
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
@@ -25,7 +25,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Buscar por</span>
                             </div>
-                            <select name="teste" class="form-control" v-model="filterBy">
+                            <select name="filter" class="form-control" v-model="filterBy">
                                 <option value="ifname">Interface</option>
                                 <option value="username" selected>User</option>
                                 <option value="ip">Endereço IPv4</option>
@@ -44,8 +44,7 @@
             </form>
         </div>
         <div class="card-body m-0 p-0">
-            <div class="scrollme">
-            <table class="table table-sm table-condensed table-hover table-striped mb-0">
+            <table class="table table-sm table-condensed table-hover table-striped table-bordered mb-0">
                 <thead class="thead-light">
                     <tr>
                         <th scope="col" class="table-bordered" v-for="column in visibleColumns" :key="column.id">
@@ -63,8 +62,8 @@
                 </thead>
                 <paginate name="items" :list="items" :per="parseInt(itemsPerPage)" tag="tbody">
                     <tr  v-for="item in paginated('items')" :key="item.id">
-                        <td v-for="column in visibleColumns" :key="column.id">{{ item[column.column] }}</td>
-                        <td>
+                        <td v-for="column in visibleColumns" :key="column.id" :class="{ 'text-right': (column.type == 'number')}">{{ item[column.column] }}</td>
+                        <td class="text-center">
                             <button class="btn btn-sm btn-info" @click="doOnGraphClick(item)" data-toggle="tooltip" data-placement="top" title="Gráfico de consumo de banda"><i class="fas fa-chart-area"></i></button>
                             <button class="btn btn-sm btn-secondary" @click="doOnQueueClick(item)" data-toggle="tooltip" data-placement="top" title="Alteração de Queue"><i class="fas fa-tachometer-alt"></i></button>
                             <button class="btn btn-sm btn-danger" @click="doOnDropClick(item)" data-toggle="tooltip" data-placement="top" title="Derrubar conexão"><i class="fas fa-power-off"></i></button>
@@ -72,7 +71,6 @@
                     </tr>
                 </paginate>
             </table>
-            </div>
         </div>
         <div class="card-footer m-0 p-0 border-0 bg-light">
             <nav>
