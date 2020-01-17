@@ -1,4 +1,4 @@
-# Accel-Manager v-0.1
+# Accel-Manager v0.1.0
 
 ## Sobre
 
