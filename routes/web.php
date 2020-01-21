@@ -20,7 +20,6 @@ Route::get('/', 'HomeController@index')->name('home'); */
 Route::middleware(['auth:web'])->group(function() {
 
     Route::get('/', 'HomeController@index')->name('home');
-    /* Route::get('/', 'DashboardController@index')->name('home'); */
 
     Route::get('/perfil', 'UserController@profile')->name('user.profile');
     Route::get('/alterar_senha', 'UserController@showChangePassword')->name('user.form.change.password');
@@ -29,7 +28,6 @@ Route::middleware(['auth:web'])->group(function() {
     Route::resource('/role_user', 'RoleUsersController')->except('show');
     Route::resource('/role', 'RolesController')->except('show');
     Route::resource('/user', 'UserController')->except('show');
-    Route::resource('/concentrador', 'ConcentradorController')->except('show');
 
 
     Route::get('/sessions/columns', 'ColumnController@getColumns')->name('sesssions.columns');

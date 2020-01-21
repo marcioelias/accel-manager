@@ -17,10 +17,10 @@
         <ul class="nav navbar-nav mr-auto">
             @role(['admin'])
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownConfiguracoes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownControleAcesso" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Controle de Acesso
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownConfiguracoes">
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownControleAcesso">
                     <li class="nav-item dropdown">
                         @permission('listar-user')
                         <li><a class="dropdown-item" href="{{route('user.index')}}">Usuários</a></li>
@@ -31,47 +31,7 @@
                     </li>
                 </ul>
             </li>
-
-            {{--  Cadastros  --}}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProdutos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Cadastros
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownProdutos">
-                    @permission('listar-concentrador')
-                    <li><a class="dropdown-item" href="{{ route('concentrador.index')}}">BRAS</a></li>
-                    @endpermission
-                </ul>
-            </li>
             @endrole
-
-            {{--  Cadastros  --}}
-            {{-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProdutos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Cadastros
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownProdutos">
-                    @permission('listar-combustivel')
-                    <li><a class="dropdown-item" href="{{route('combustivel.index')}}">Usuários</a></li>
-                    @endpermission
-                    @permission('listar-produto')
-                    <li><a class="dropdown-item" href="{{route('produto.index')}}">Produtos</a></li>
-                    @endpermission
-                    @permission('listar-grupo-produto')
-                    <li><a class="dropdown-item" href="{{route('grupo_produto.index')}}">Grupos de Produto</a></li>
-                    @endpermission
-                    @permission('listar-estoque')
-                    <li><a class="dropdown-item" href="{{route('estoque.index')}}">Estoques</a></li>
-                    @endpermission
-                    <div class="dropdown-divider"></div>
-                    @permission('listar-servico')
-                    <li><a class="dropdown-item" href="{{route('servico.index')}}">Serviços</a></li>
-                    @endpermission
-                    @permission('listar-grupo-servico')
-                    <li><a class="dropdown-item" href="{{route('grupo_servico.index')}}">Grupos de Serviço</a></li>
-                    @endpermission
-                </ul>
-            </li> --}}
         </ul>
         {{--  Left Align End  --}}
         {{--  Right Align Begin  --}}
@@ -102,5 +62,3 @@
         @endauth
     </div>
 </nav>
-{{--  @component('layouts.session_messages')
-@endcomponent  --}}
