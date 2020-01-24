@@ -76,7 +76,7 @@ class RolesController extends Controller
     { 
         if (Auth::user()->canCadastrarRole()) {
             $this->validate($request, [
-                'name' => 'required|string|min:5|max:100|unique:roles',
+                'name' => 'required|string|min:4|max:100|unique:roles',
                 'display_name' => 'required|string|max:100|unique:roles'
             ]);
 
@@ -155,7 +155,7 @@ class RolesController extends Controller
     {
         if (Auth::user()->canAlterarRole()) {
             $this->validate($request, [
-                'name' => 'required|string|min:5|max:100|unique:roles,id,'.$role->id,
+                'name' => 'required|string|min:4|max:100|unique:roles,id,'.$role->id,
                 'display_name' => 'required|string|max:100|unique:roles,id,'.$role->id
             ]);
 
