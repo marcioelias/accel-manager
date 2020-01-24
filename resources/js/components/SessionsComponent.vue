@@ -64,9 +64,9 @@
                     <tr  v-for="item in paginated('items')" :key="item.id">
                         <td v-for="column in visibleColumns" :key="column.id" :class="{ 'text-right': (column.type == 'number')}">{{ item[column.column] }}</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-info" @click="doOnGraphClick(item)" data-toggle="tooltip" data-placement="top" title="Gráfico de consumo de banda"><i class="fas fa-chart-area"></i></button>
-                            <button class="btn btn-sm btn-secondary" @click="doOnQueueClick(item)" data-toggle="tooltip" data-placement="top" title="Alteração de Queue"><i class="fas fa-tachometer-alt"></i></button>
-                            <button class="btn btn-sm btn-danger" @click="doOnDropClick(item)" data-toggle="tooltip" data-placement="top" title="Derrubar conexão"><i class="fas fa-power-off"></i></button>
+                            <button v-if="userHasPermission('acessar-view-graph')" class="btn btn-sm btn-info" @click="doOnGraphClick(item)" data-toggle="tooltip" data-placement="top" title="Gráfico de consumo de banda"><i class="fas fa-chart-area"></i></button>
+                            <button v-if="userHasPermission('acessar-change-rate-limit')" class="btn btn-sm btn-secondary" @click="doOnQueueClick(item)" data-toggle="tooltip" data-placement="top" title="Alteração de Queue"><i class="fas fa-tachometer-alt"></i></button>
+                            <button v-if="userHasPermission('acessar-drop-pppoe')" class="btn btn-sm btn-danger" @click="doOnDropClick(item)" data-toggle="tooltip" data-placement="top" title="Derrubar conexão"><i class="fas fa-power-off"></i></button>
                         </td>
                     </tr>
                 </paginate>
@@ -206,7 +206,7 @@ export default {
             return {
                 'fa-spin': this.$store.state.loading
             }
-        }
+        },
     },
     mounted() {
         $(this.$refs.modalChangeQueue).on("hidden.bs.modal", this.doOnCloseModalChangeQueue);
@@ -218,6 +218,9 @@ export default {
         this.cancelAutoUpdate();
     },
     methods: {
+        getUserPermissions() {
+            this.$store.dispatch('apiUserPermissions');
+        },
         getSessions() {
             this.$store.dispatch('apiGetSessions');
         },
@@ -274,6 +277,9 @@ export default {
         },
         doOnSync: function() {
             this.$store.dispatch('apiGetSessions');
+        },
+        userHasPermission(permission) {
+            return this.$store.getters.userHasPermission(permission);
         }
     },
 }

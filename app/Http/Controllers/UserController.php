@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Rules\ValidCurrentPassword;
 use App\Traits\SearchTrait;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -238,5 +239,10 @@ class UserController extends Controller
             ]));
             return redirect()->back();
         }
+    }
+
+    public function userPermissions() {
+        Log::debug(Auth::user()->allPermissions());
+        return response()->json(Auth::user()->allPermissions());
     }
 }

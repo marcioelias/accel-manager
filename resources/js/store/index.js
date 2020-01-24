@@ -9,13 +9,14 @@ export default new Vuex.Store({
     state: {
         sessions: [],
         columns: [],
+        userPerms: [],
         sortBy: 'ifname',
         sortType: 'text',
         sortAsc: true,
         filterBy: 'username',
         filterValue: '',
         graph: false,
-        loading: false
+        loading: false,
     },
     getters: {
         getSessionByUsername: state => username =>  {
@@ -77,6 +78,9 @@ export default new Vuex.Store({
                 })
             }
         },
+        userHasPermission: state => permission => {
+            return state.userPerms.find(p => p.name == permission);
+        }
     },
     actions: {
         apiGetSessions({commit}) {
@@ -142,6 +146,17 @@ export default new Vuex.Store({
                     console.log(r);
                 })
         },
+        apiUserPermissions({commit}) {
+            Axios.post('/user-permissions')
+                .then(async r => {
+                    if (r.data) {
+                        commit(VALID_MUTATIONS.SET_USER_PERM, r.data);
+                    }
+                })
+                .catch(r => {
+                    console.log(r);
+                })
+        },
         sortIPv4Address(a, b) {
             const num1 = Number(a.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
             const num2 = Number(b.split(".").map((num) => (`000${num}`).slice(-3) ).join(""));
@@ -179,6 +194,9 @@ export default new Vuex.Store({
         },
         [VALID_MUTATIONS.LOADING](state, loading) {
             state.loading = loading;
+        },
+        [VALID_MUTATIONS.SET_USER_PERM](state, permissions) {
+            state.userPerms = permissions;
         }
     }
 });

@@ -42,6 +42,7 @@ const app = new Vue({
         SessionsComponent
     },
     created() {
+        this.$store.dispatch('apiUserPermissions');
         this.$store.dispatch('apiGetSessions');
         this.$store.dispatch('apiGetColumns');
     },
