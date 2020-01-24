@@ -6,16 +6,16 @@ current:
   major: 1
   minor: 0
   patch: 0
-  prerelease: 11-g5f771f4
+  prerelease: 12-gac8fe9f
   buildmetadata: ''
-  commit: 5f771f
+  commit: ac8fe9
   timestamp:
     year: 2020
     month: 1
     day: 24
     hour: 5
-    minute: 34
-    second: 19
+    minute: 36
+    second: 1
     timezone: UTC
 commit:
   mode: git-local

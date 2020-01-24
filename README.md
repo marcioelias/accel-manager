@@ -2,7 +2,7 @@
 
 ## About
 
-This software clains to cover basic actions on daily management of a Accel-PPP B-RAS, running PPPoE Sessions.
+This software claims to cover basic actions on the daily management of an Accel-PPP B-RAS, running PPPoE Sessions.
 
 ## Features
 
@@ -10,9 +10,9 @@ This software clains to cover basic actions on daily management of a Accel-PPP B
  - User access control by profile configurations
  - List all PPPoE sessions with:
     - Pagination 
-    - Search by specified field
+    - Search by a specified field
     - Order by field
- - This are the actions that can be executed on a give session:
+ - This is the actions that can be executed on a give session:
     - Live network traffic graphic
     - Change rate-limit parameters
     - Restore rate-limit to original parameters values
@@ -20,7 +20,7 @@ This software clains to cover basic actions on daily management of a Accel-PPP B
 
 ## Requirements
 
-Since this software use the Laravel Framework on version ^6.x, he inherite the Laravel
+Since this software uses the Laravel Framework on version ^6.x, he inherited the Laravel
 requirements.
 
 - PHP >= 7.2.0
@@ -33,15 +33,15 @@ requirements.
 - Tokenizer PHP Extension
 - XML PHP Extension
 
-- Composer (used to install project dependencies). If you are not familiar with composer installation, just go to https://getcomposer.org/ or Google for the process of installation on your SO.
+- Composer (used to install project dependencies). If you are not familiar with the composer installation, just go to https://getcomposer.org/ or Google for the process of installation on your SO.
 
-Besides PHP, the server has to run a WebServer (this has developed and tested with Apache 2.4, but can be used a Nginx) and a database. I Strongly recomends the use of the SQLite3 database, for his small footprint, after all we need to put the power of the machine on terminate the user sessions, and not work with a database system.
+Besides PHP, the server has to run a WebServer (this has developed and tested with Apache 2.4, but can be used an Nginx) and a database. I strongly recommend the use of the SQLite3 database, for his small size and resource consumption, after all, the focus of the machine will be on terminate the user PPPoE Sessions.
 
-(Optional) Git client. With git you can clone the repository locally and get furter updates smootly.
+(Optional) Git client. With git, you can clone the repository locally and get further updates smoothly.
 
-## Instalation
+## Installation
 
-Once you have the Http server, PHP and Database installed on your server, you are ready to go. I will illustrate the instalation process with Git, if you prefer to download the source code directly, just skipt the clonning repository step, and make sure to download and unzip the project on the folder where you Http server is configured to serve.
+Once you have the Http server, PHP and Database installed on your server, you are ready to go. I will illustrate the installation process with Git, if you prefer to download the source code directly, just skip the cloning repository step, and make sure to download and unzip the project on the folder where you Http server is configured to serve.
 
 1- Access you Http server configured folder (like /var/www/html for exemple)
 ```
