@@ -10,6 +10,7 @@ use App\Rules\ValidRoleUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class RoleUsersController extends Controller
@@ -27,6 +28,7 @@ class RoleUsersController extends Controller
      */
     public function index(Request $request)
     {
+        Log::debug(Auth::user()->canListarRoleUser());
         if (Auth::user()->canListarRoleUser()) {
             if ($request->searchField) {
                 $roleUsers = DB::table('role_user')

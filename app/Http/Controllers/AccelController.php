@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class AccelController extends Controller
 {
@@ -23,7 +23,15 @@ class AccelController extends Controller
     const ACCEL_CHANGE_QUEUE_TEMP = ' temp';
     const ACCEL_RESTORE_QUEUE = 'shaper restore ';
 
-    public function sysExec(String $cmd) {       
+    /**
+     * run a command on shell
+     *
+     *
+     * @param Stirng $cmd Command to execute
+     * @return Array
+     **/
+     
+    private function sysExec(String $cmd) {       
         $res = self::EMPTY;
         $handle = popen($cmd, self::RO);
         if ($handle) {
@@ -35,7 +43,13 @@ class AccelController extends Controller
         return array_filter(explode(PHP_EOL, $res));
     }
 
-    public function sysExecDbg(String $cmd) {       
+    /**
+     * Undocumented function
+     *
+     * @param String $cmd
+     * @return void
+     */
+    private function sysExecDbg(String $cmd) {       
         $res = self::EMPTY;
         $handle = popen($cmd, self::RO);
         if ($handle) {
@@ -69,6 +83,11 @@ class AccelController extends Controller
         return array_filter(explode(PHP_EOL, $res));
     }
 
+    /**
+     * Get PPPoE Sessions from Accel-PPP
+     *
+     * @return Array
+     */
     public function getSessions() {
         $cmd = self::ACCEL_CMD.self::ACCEL_CMD_SHOW_SESSIONS.self::ACCEL_SESSIONS_COLUMNS;
         if (env('APP_DEBUG') == false) {
@@ -78,6 +97,13 @@ class AccelController extends Controller
         }
     }
 
+
+    /**
+     * Get PPPoE Sessions from Accel-PPP
+     * and return a Json object
+     *
+     * @return String
+     */
     public function getSessionsJson() {
         $res = [];
         $sessions = $this->getSessions();
@@ -89,57 +115,98 @@ class AccelController extends Controller
             }
         }
 
-        return json_encode($res);
+        return response()->json($res);
     }
 
-    public function terminateSession(String $intf, bool $hard = null) {
-        $cmd = self::ACCEL_CMD.self::ACCEL_CMD_TERMINATE_IF.$intf.($hard ? ' hard' : ' soft');
-        $this->sysExec($cmd);
-    }
-
+    /**
+     * Get stats of the given interface and return as a 
+     * json object
+     *
+     * @param String $ifname
+     * @return String 
+     */
     public function getInterfaceStats(String $ifname) {
-        $timezone = -3;
-        $arr{'stamp'} = (time()+($timezone*3600))*1000;
-		$arr{'rxbytes'} = intval($this->sysExec("cat /sys/class/net/".escapeshellcmd(trim($ifname))."/statistics/rx_bytes")[0]);
-		$arr{'txbytes'} = intval($this->sysExec("cat /sys/class/net/".escapeshellcmd(trim($ifname))."/statistics/tx_bytes")[0]);
-		$arr{'rxpackets'} = intval($this->sysExec("cat /sys/class/net/".escapeshellcmd(trim($ifname))."/statistics/rx_packets")[0]);
-		$arr{'txpackets'} = intval($this->sysExec("cat /sys/class/net/".escapeshellcmd(trim($ifname))."/statistics/tx_packets")[0]);
-		return json_encode($arr);
+        if (Auth::user()->canAcessarViewGraph()) {
+            $timezone = -3;
+            $arr{'stamp'} = (time()+($timezone*3600))*1000;
+            $arr{'rxbytes'} = intval($this->sysExec("cat /sys/class/net/".escapeshellcmd(trim($ifname))."/statistics/rx_bytes")[0]);
+            $arr{'txbytes'} = intval($this->sysExec("cat /sys/class/net/".escapeshellcmd(trim($ifname))."/statistics/tx_bytes")[0]);
+            $arr{'rxpackets'} = intval($this->sysExec("cat /sys/class/net/".escapeshellcmd(trim($ifname))."/statistics/rx_packets")[0]);
+            $arr{'txpackets'} = intval($this->sysExec("cat /sys/class/net/".escapeshellcmd(trim($ifname))."/statistics/tx_packets")[0]);
+            return response()->json($arr);
+        } else {
+            return response()->json($this->getHttp403());
+        }
     }
 
-    public function getHostName() {
-        return json_encode($this->sysExec('hostname'));
-    }
-
+    /**
+     * Drop a PPPoE Session
+     *
+     * @param Request $request
+     * @return void
+     */
     public function dropSession(Request $request) {
-        $cmd = self::ACCEL_CMD.self::ACCEL_CMD_TERMINATE_IF.$request->ifname.' hard';
-        try {
-            $this->sysExec($cmd);
-            return response()->json(true);
-        } catch (\Exception $e) {
-            return response()->json($e);
+        if (Auth::user()->canAcessarDropPppoe()) {
+            $cmd = self::ACCEL_CMD.self::ACCEL_CMD_TERMINATE_IF.$request->ifname.' hard';
+            try {
+                $this->sysExec($cmd);
+                return response()->json(true);
+            } catch (\Exception $e) {
+                return response()->json($e);
+            }
+        } else {
+            return response()->json($this->getHttp403());
         }
     }
 
-    public function changeQueue(Request $request) {        
-        $queue = $request->rx.'M/'.$request->tx.'M';
-        $cmd = self::ACCEL_CMD.self::ACCEL_CHANGE_QUEUE.$request->ifname.' '.$queue.self::ACCEL_CHANGE_QUEUE_TEMP;
-        try {
-            $this->sysExec($cmd);
-            return response()->json(true);
-        } catch (\Exception $e) {
-            return response()->json($e);
+    /**
+     * Change the rate-limit parameter values
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function changeQueue(Request $request) {    
+        if (Auth::user()->canAcessarChangeRateLimit()) {    
+            $queue = $request->rx.'M/'.$request->tx.'M';
+            $cmd = self::ACCEL_CMD.self::ACCEL_CHANGE_QUEUE.$request->ifname.' '.$queue.self::ACCEL_CHANGE_QUEUE_TEMP;
+            try {
+                $this->sysExec($cmd);
+                return response()->json(true);
+            } catch (\Exception $e) {
+                return response()->json($e);
+            }
+        } else {
+            return response()->json($this->getHttp403());
         }
     }
 
+    /**
+     * Reset the rate-limit values to the default 
+     *
+     * @param Request $request
+     * @return void
+     */
     public function resetQueue(Request $request) {
-        $cmd = self::ACCEL_CMD.self::ACCEL_RESTORE_QUEUE.$request->ifname;
-        try {
-            $this->sysExec($cmd);
-            return response()->json(true);
-        } catch (\Exception $e) {
-            return response()->json($e);
+        if (Auth::user()->canAcessarChangeRateLimit()) {    
+            $cmd = self::ACCEL_CMD.self::ACCEL_RESTORE_QUEUE.$request->ifname;
+            try {
+                $this->sysExec($cmd);
+                return response()->json(true);
+            } catch (\Exception $e) {
+                return response()->json($e);
+            }
+        } else {
+            return response()->json($this->getHttp403());
         }
+    }
+
+    /**
+     * return an HTTP access denied code
+     *
+     * @return void
+     */
+    private function getHttp403() {
+        return ['error' => '403', 'response' => 'Access denied'];
     }
 
 }
