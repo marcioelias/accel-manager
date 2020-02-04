@@ -60,7 +60,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <paginate name="items" :list="items" :per="parseInt(itemsPerPage)" :key="items" tag="tbody">
+                <paginate name="items" :list="items" :per="parseInt(itemsPerPage)" :key="items.lenght" tag="tbody">
                     <tr  v-for="(item, index) in paginated('items')" :key="index">
                         <td v-for="column in visibleColumns" :key="column.id" :class="{ 'text-right': (column.type == 'number')}">{{ item[column.column] }}</td>
                         <td class="text-center">

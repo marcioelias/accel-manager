@@ -6,16 +6,16 @@ current:
   major: 1
   minor: 0
   patch: 0
-  prerelease: 23-gc64f4d7
+  prerelease: 24-g3defe12
   buildmetadata: ''
-  commit: c64f4d
+  commit: 3defe1
   timestamp:
     year: 2020
     month: 2
     day: 4
     hour: 14
-    minute: 47
-    second: 40
+    minute: 48
+    second: 11
     timezone: UTC
 commit:
   mode: git-local
