@@ -60,7 +60,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <paginate name="items" :list="items" :per="parseInt(itemsPerPage)" tag="tbody">
+                <!-- <paginate name="items" :list="items" :per="parseInt(itemsPerPage)" tag="tbody">
                     <tr  v-for="(item, index) in paginated('items')" :key="index">
                         <td v-for="column in visibleColumns" :key="column.id" :class="{ 'text-right': (column.type == 'number')}">{{ item[column.column] }}</td>
                         <td class="text-center">
@@ -69,10 +69,18 @@
                             <button v-if="userHasPermission('acessar-drop-pppoe')" class="btn btn-sm btn-danger" @click="doOnDropClick(item)" data-toggle="tooltip" data-placement="top" title="Derrubar conexão"><i class="fas fa-power-off"></i></button>
                         </td>
                     </tr>
-                </paginate>
+                </paginate> -->
+                <tr  v-for="(item, index) in items" :key="index">
+                        <td v-for="column in visibleColumns" :key="column.id" :class="{ 'text-right': (column.type == 'number')}">{{ item[column.column] }}</td>
+                        <td class="text-center">
+                            <button v-if="userHasPermission('acessar-view-graph')" class="btn btn-sm btn-info" @click="doOnGraphClick(item)" data-toggle="tooltip" data-placement="top" title="Gráfico de consumo de banda"><i class="fas fa-chart-area"></i></button>
+                            <button v-if="userHasPermission('acessar-change-rate-limit')" class="btn btn-sm btn-secondary" @click="doOnQueueClick(item)" data-toggle="tooltip" data-placement="top" title="Alteração de Queue"><i class="fas fa-tachometer-alt"></i></button>
+                            <button v-if="userHasPermission('acessar-drop-pppoe')" class="btn btn-sm btn-danger" @click="doOnDropClick(item)" data-toggle="tooltip" data-placement="top" title="Derrubar conexão"><i class="fas fa-power-off"></i></button>
+                        </td>
+                    </tr>
             </table>
         </div>
-        <div class="card-footer m-0 p-0 border-0 bg-light">
+        <!-- <div class="card-footer m-0 p-0 border-0 bg-light">
             <nav>
                 <paginate-links 
                     for="items" 
@@ -86,7 +94,7 @@
                     }">
                 </paginate-links>
             </nav>
-        </div>
+        </div> -->
         <div class="modal fade" ref="modalDropSession" id="modalDropSession" tabindex="-1" role="dialog" aria-labelledby="modalDropSession" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
