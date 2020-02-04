@@ -6,16 +6,16 @@ current:
   major: 1
   minor: 0
   patch: 0
-  prerelease: 13-ga79f3af
+  prerelease: 15-g3381127
   buildmetadata: ''
-  commit: a79f3a
+  commit: '338112'
   timestamp:
     year: 2020
-    month: 1
-    day: 24
-    hour: 5
-    minute: 43
-    second: 37
+    month: 2
+    day: 4
+    hour: 13
+    minute: 10
+    second: 43
     timezone: UTC
 commit:
   mode: git-local
