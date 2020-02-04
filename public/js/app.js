@@ -42453,10 +42453,10 @@ var render = function() {
                   tag: "tbody"
                 }
               },
-              _vm._l(_vm.paginated("items"), function(item) {
+              _vm._l(_vm.paginated("items"), function(item, index) {
                 return _c(
                   "tr",
-                  { key: item.ifname },
+                  { key: index },
                   [
                     _vm._l(_vm.visibleColumns, function(column) {
                       return _c(

@@ -6,16 +6,16 @@ current:
   major: 1
   minor: 0
   patch: 0
-  prerelease: 18-gdcc7187
+  prerelease: 19-g33e2447
   buildmetadata: ''
-  commit: dcc718
+  commit: '33e244'
   timestamp:
     year: 2020
     month: 2
     day: 4
     hour: 14
-    minute: 13
-    second: 1
+    minute: 19
+    second: 15
     timezone: UTC
 commit:
   mode: git-local
