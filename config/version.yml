@@ -6,16 +6,16 @@ current:
   major: 1
   minor: 0
   patch: 0
-  prerelease: 21-g00494b7
+  prerelease: 22-gbe1d0ac
   buildmetadata: ''
-  commit: 00494b
+  commit: be1d0a
   timestamp:
     year: 2020
     month: 2
     day: 4
     hour: 14
-    minute: 30
-    second: 28
+    minute: 37
+    second: 58
     timezone: UTC
 commit:
   mode: git-local
