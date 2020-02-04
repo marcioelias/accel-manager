@@ -61,7 +61,7 @@
                     </tr>
                 </thead>
                 <paginate name="items" :list="items" :per="parseInt(itemsPerPage)" tag="tbody">
-                    <tr  v-for="item in paginated('items')" :key="item.id">
+                    <tr  v-for="item in paginated('items')" :key="item.ifname">
                         <td v-for="column in visibleColumns" :key="column.id" :class="{ 'text-right': (column.type == 'number')}">{{ item[column.column] }}</td>
                         <td class="text-center">
                             <button v-if="userHasPermission('acessar-view-graph')" class="btn btn-sm btn-info" @click="doOnGraphClick(item)" data-toggle="tooltip" data-placement="top" title="Gráfico de consumo de banda"><i class="fas fa-chart-area"></i></button>

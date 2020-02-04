@@ -42456,7 +42456,7 @@ var render = function() {
               _vm._l(_vm.paginated("items"), function(item) {
                 return _c(
                   "tr",
-                  { key: item.id },
+                  { key: item.ifname },
                   [
                     _vm._l(_vm.visibleColumns, function(column) {
                       return _c(
