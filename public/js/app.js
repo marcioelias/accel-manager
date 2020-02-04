@@ -2230,14 +2230,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -42451,89 +42443,124 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._l(_vm.items, function(item, index) {
-              return _c(
-                "tr",
-                { key: index },
-                [
-                  _vm._l(_vm.visibleColumns, function(column) {
-                    return _c(
-                      "td",
-                      {
-                        key: column.id,
-                        class: { "text-right": column.type == "number" }
-                      },
-                      [_vm._v(_vm._s(item[column.column]))]
-                    )
-                  }),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-center" }, [
-                    _vm.userHasPermission("acessar-view-graph")
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-info",
-                            attrs: {
-                              "data-toggle": "tooltip",
-                              "data-placement": "top",
-                              title: "Gráfico de consumo de banda"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.doOnGraphClick(item)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-chart-area" })]
-                        )
-                      : _vm._e(),
+            _c(
+              "paginate",
+              {
+                key: _vm.items ? _vm.items.length : 0,
+                attrs: {
+                  name: "items",
+                  list: _vm.items,
+                  per: parseInt(_vm.itemsPerPage),
+                  tag: "tbody"
+                }
+              },
+              _vm._l(_vm.paginated("items"), function(item, index) {
+                return _c(
+                  "tr",
+                  { key: index },
+                  [
+                    _vm._l(_vm.visibleColumns, function(column) {
+                      return _c(
+                        "td",
+                        {
+                          key: column.id,
+                          class: { "text-right": column.type == "number" }
+                        },
+                        [_vm._v(_vm._s(item[column.column]))]
+                      )
+                    }),
                     _vm._v(" "),
-                    _vm.userHasPermission("acessar-change-rate-limit")
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-secondary",
-                            attrs: {
-                              "data-toggle": "tooltip",
-                              "data-placement": "top",
-                              title: "Alteração de Queue"
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.doOnQueueClick(item)
+                    _c("td", { staticClass: "text-center" }, [
+                      _vm.userHasPermission("acessar-view-graph")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-info",
+                              attrs: {
+                                "data-toggle": "tooltip",
+                                "data-placement": "top",
+                                title: "Gráfico de consumo de banda"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.doOnGraphClick(item)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-tachometer-alt" })]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.userHasPermission("acessar-drop-pppoe")
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-danger",
-                            attrs: {
-                              "data-toggle": "tooltip",
-                              "data-placement": "top",
-                              title: "Derrubar conexão"
                             },
-                            on: {
-                              click: function($event) {
-                                return _vm.doOnDropClick(item)
+                            [_c("i", { staticClass: "fas fa-chart-area" })]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.userHasPermission("acessar-change-rate-limit")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-secondary",
+                              attrs: {
+                                "data-toggle": "tooltip",
+                                "data-placement": "top",
+                                title: "Alteração de Queue"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.doOnQueueClick(item)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-power-off" })]
-                        )
-                      : _vm._e()
-                  ])
-                ],
-                2
-              )
+                            },
+                            [_c("i", { staticClass: "fas fa-tachometer-alt" })]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.userHasPermission("acessar-drop-pppoe")
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-danger",
+                              attrs: {
+                                "data-toggle": "tooltip",
+                                "data-placement": "top",
+                                title: "Derrubar conexão"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.doOnDropClick(item)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-power-off" })]
+                          )
+                        : _vm._e()
+                    ])
+                  ],
+                  2
+                )
+              }),
+              0
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-footer m-0 p-0 border-0 bg-light" }, [
+        _c(
+          "nav",
+          [
+            _c("paginate-links", {
+              attrs: {
+                for: "items",
+                limit: 5,
+                "show-step-links": true,
+                "hide-single-page": true,
+                classes: {
+                  ul: ["pagination", "justify-content-center"],
+                  li: "page-item",
+                  "li a": "page-link"
+                }
+              }
             })
           ],
-          2
+          1
         )
       ]),
       _vm._v(" "),
