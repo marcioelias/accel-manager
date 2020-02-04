@@ -42446,7 +42446,7 @@ var render = function() {
             _c(
               "paginate",
               {
-                key: _vm.items.lenght,
+                key: _vm.items.length,
                 attrs: {
                   name: "items",
                   list: _vm.items,

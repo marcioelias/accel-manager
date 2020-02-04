@@ -6,16 +6,16 @@ current:
   major: 1
   minor: 0
   patch: 0
-  prerelease: 24-g3defe12
+  prerelease: 25-gb4ad259
   buildmetadata: ''
-  commit: 3defe1
+  commit: b4ad25
   timestamp:
     year: 2020
     month: 2
     day: 4
     hour: 14
-    minute: 48
-    second: 11
+    minute: 51
+    second: 1
     timezone: UTC
 commit:
   mode: git-local
